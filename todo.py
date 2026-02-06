@@ -101,7 +101,39 @@ def delete_todo():
     print_error("Todo không tồn tại")
     pause()
     return False
-    # delete todo
-    # print success
-    # pause
-    # return False
+
+def update_todo():
+    global tasks
+    clear_screen()
+    print_header("DANH SÁCH TODO")
+
+    if not tasks:
+        print("📭 Không có todo nào")
+        pause()
+        return False
+
+    print(f"{'ID':<4} {'TITLE':<15} {'STATUS':<12} {'PRIORITY':<10}")
+    print("-" * 50)
+
+    for t in tasks:
+        print(f"{t['id']:<4} {t['title']:<15} {t['status']:<12} {t['priority']:<10}")
+    print_header("CẬP NHẬT TODO")
+    id = input("ID: ")
+    for t in tasks:
+        if t['id'] == int(id):
+            title = input("Title: ")
+            description = input("Description: ")
+            priority = input("Priority: ")
+            if title != "":
+                t['title'] = title
+            if description != "":
+                t['description'] = description
+            if priority != "":
+                t['priority'] = priority
+            t['updated_at'] = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+            print_success("Cập nhật todo thành công")
+            pause()
+            return False
+    print_error("Todo không tồn tại")
+    pause()
+    return False
